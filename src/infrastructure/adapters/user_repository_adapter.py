@@ -33,14 +33,30 @@ class UserRepositoryAdapter(IUserRepository):
 
         return UserMapper.to_domain(entity)
 
-    async def update_failed_attempts(self, user: DomainUser, attempts: int, locked_until: datetime | None = None) -> None:
+    async def update_failed_attempts(self, user: DomainUser, attempts: int,
+                                     locked_until: datetime | None = None) -> None:
         query = select(UserEntity).where(UserEntity.id == user.id)
         result = await self.session.execute(query)
-        entity = result.scalar_one()
+        entity = result.scalar_one_or_none()
+
+        print(f"1. entity: {entity}")
+        print(f"2. user.id: {user.id}")
+
+        if entity is None:
+            print("3. Entity es None, saliendo...")
+            return None
 
         entity.failed_login_attempts = attempts
         entity.locked_until = locked_until
         entity.updated_at = datetime.now(timezone.utc)
+
+        print(f"4. Antes de commit - attempts: {entity.failed_login_attempts}")
+
+        await self.session.commit()
+
+        print(f"5. Después de commit")
+
+        return None
 
     async def update_last_login(self, user: DomainUser) -> None:
         query = select(UserEntity).where(UserEntity.id == user.id)

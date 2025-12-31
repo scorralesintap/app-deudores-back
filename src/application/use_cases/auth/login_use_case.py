@@ -27,7 +27,6 @@ class LoginUseCase(ILoginUseCase):
         if user.locked_until and user.locked_until <= datetime.now(timezone.utc):
             await self.user_repository.update_failed_attempts(user, 0, None)
 
-        # El password ya es un Value Object en el modelo de dominio
         if not user.password.verify(loginDto.password):
             attempts = user.failed_login_attempts + 1
             locked_until = None
