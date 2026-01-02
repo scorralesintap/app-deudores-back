@@ -1,11 +1,11 @@
 from datetime import datetime, timezone
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.domain.ports.ports_out.i_user_repository import IUserRepository
+from src.domain.ports.ports_out.repositories import IUserRepository
 from src.domain.models.user import User as DomainUser
 from src.infrastructure.database.entities.user import User as UserEntity
 from src.infrastructure.mappers.user_mapper import UserMapper
-from src.domain.value_objects.user.user_password import UserPassword
+
 
 class UserRepositoryAdapter(IUserRepository):
 
@@ -33,8 +33,7 @@ class UserRepositoryAdapter(IUserRepository):
 
         return UserMapper.to_domain(entity)
 
-    async def update_failed_attempts(self, user: DomainUser, attempts: int,
-                                     locked_until: datetime | None = None) -> None:
+    async def update_failed_attempts(self, user: DomainUser, attempts: int, locked_until: datetime | None = None) -> None:
         query = select(UserEntity).where(UserEntity.id == user.id)
         result = await self.session.execute(query)
         entity = result.scalar_one_or_none()

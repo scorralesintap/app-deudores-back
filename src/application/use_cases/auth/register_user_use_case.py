@@ -4,7 +4,7 @@ from src.application.dtos.users.create_user_dto import CreateUserDto
 from src.application.dtos.users.create_user_response_dto import CreateUserResponseDto
 from src.domain.ports.ports_in.auth import IRegisterUserUseCase
 from src.domain.models.user import User as DomainUser
-from src.domain.ports.ports_out import IUserRepository
+from src.domain.ports.ports_out.repositories import IUserRepository
 
 class RegisterUserUseCase(IRegisterUserUseCase):
 

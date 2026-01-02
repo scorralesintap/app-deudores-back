@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta, timezone
 
 from src.infrastructure.services.datetime_service import DatetimeService
-from src.domain.ports.ports_out.services.i_jwt_service import IJWTService
+from src.domain.ports.ports_out.services import IJWTService
 from src.application.dtos.auth.login_dto import LoginDto
 from src.application.dtos.auth.login_reponse_dto import LoginResponseDto
 from src.domain.ports.ports_in.auth import ILoginUseCase
-from src.domain.ports.ports_out.i_user_repository import IUserRepository
+from src.domain.ports.ports_out.repositories import IUserRepository
 
 MAX_LOGIN_ATTEMPTS = 5
 LOCK_DURATION_HOURS = 24

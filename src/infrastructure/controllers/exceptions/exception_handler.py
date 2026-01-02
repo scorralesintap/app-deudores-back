@@ -5,6 +5,12 @@ from fastapi.exceptions import RequestValidationError
 
 logger = logging.getLogger(__name__)
 
+CORS_HEADERS = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "*",
+    "Access-Control-Allow-Headers": "*",
+}
 
 def create_error_response(status_code: int, message: str) -> JSONResponse:
     return JSONResponse(
@@ -13,7 +19,8 @@ def create_error_response(status_code: int, message: str) -> JSONResponse:
             "status": False,
             "data": None,
             "message": message
-        }
+        },
+        headers = CORS_HEADERS
     )
 
 async def validation_exception_handler(request: Request, exc: RequestValidationError) -> JSONResponse:

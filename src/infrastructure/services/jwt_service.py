@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 from jose import JWTError, jwt
 from src.infrastructure.config.settings import settings
-from src.domain.ports.ports_out.services.i_jwt_service import IJWTService
+from src.domain.ports.ports_out.services import IJWTService
 
 class JWTService(IJWTService):
 
