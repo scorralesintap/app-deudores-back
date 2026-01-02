@@ -10,6 +10,9 @@ class UserPassword:
             self._hashed_password = self._hash(password)
 
     def _validate(self, password: str):
+        if not password or password.strip() == "":
+            raise ValueError("La contraseña es obligatoria")
+
         if len(password) < 8:
             raise ValueError("La contraseña debe tener mínimo 8 caracteres")
 

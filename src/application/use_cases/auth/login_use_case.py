@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from src.application.dtos.auth.login_dto import LoginDto
 from src.application.dtos.auth.login_reponse_dto import LoginResponseDto
-from src.domain.ports.ports_in.i_login_use_case import ILoginUseCase
+from src.domain.ports.ports_in.auth import ILoginUseCase
 from src.domain.ports.ports_out.i_user_repository import IUserRepository
 from src.infrastructure.services import create_access_token
 

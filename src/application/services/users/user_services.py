@@ -1,9 +1,7 @@
 from src.application.dtos.auth.login_dto import LoginDto
 from src.application.dtos.users.create_user_dto import CreateUserDto
-from src.application.dtos.auth.login_dto import LoginDto
-from src.application.dtos.users.create_user_dto import CreateUserDto
-from src.domain.ports.ports_in.i_register_user_use_case import IRegisterUserUseCase
-from src.domain.ports.ports_in.i_login_use_case import ILoginUseCase
+from src.domain.ports.ports_in.auth import IRegisterUserUseCase
+from src.domain.ports.ports_in.auth import ILoginUseCase
 
 
 class UserServices:
