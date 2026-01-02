@@ -14,8 +14,8 @@ class UserServices:
         self.register_use_case = register_use_case
         self.login_use_case = login_use_case
 
-    async def create(self, userDto: CreateUserDto): 
-        return await self.register_use_case.create(userDto)
+    async def create(self, user_dto: CreateUserDto):
+        return await self.register_use_case.create(user_dto)
     
-    async def login(self, loginDto: LoginDto):
-        return await self.login_use_case.login(loginDto)
+    async def login(self, login_dto: LoginDto):
+        return await self.login_use_case.login(login_dto)

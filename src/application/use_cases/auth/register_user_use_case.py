@@ -8,17 +8,17 @@ from src.domain.ports.ports_out import IUserRepository
 
 class RegisterUserUseCase(IRegisterUserUseCase):
 
-    def __init__(self, IUserRepository: IUserRepository):
-        self.user_repository = IUserRepository
+    def __init__(self, user_repository: IUserRepository):
+        self.user_repository = user_repository
 
-    async def create(self, createUserDto: CreateUserDto) -> CreateUserResponseDto:
+    async def create(self, create_user_dto: CreateUserDto) -> CreateUserResponseDto:
 
-        existing_user = await self.user_repository.get_by_document_number(createUserDto.document_number)
+        existing_user = await self.user_repository.get_by_document_number(create_user_dto.document_number)
         if existing_user:
             raise Exception("El documento ya está registrado")
 
-        document_number = UserDocumentNumber(createUserDto.document_number)
-        password_hashed = UserPassword(createUserDto.password)
+        document_number = UserDocumentNumber(create_user_dto.document_number)
+        password_hashed = UserPassword(create_user_dto.password)
 
         user_domain = DomainUser(
             document_number = document_number,

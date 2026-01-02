@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, status
+
+from src.infrastructure.services import JWTService
 from src.application.dtos.auth.login_dto import LoginDto
 from src.application.dtos.auth.login_reponse_dto import LoginResponseDto
 from src.application.use_cases.auth.login_use_case import LoginUseCase
@@ -15,8 +17,9 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 
 def get_services(session: AsyncSession = Depends(get_session)):
     repository = UserRepositoryAdapter(session)
+    jwt_service = JWTService()
     register_use_case = RegisterUserUseCase(repository)
-    login_use_case = LoginUseCase(repository)
+    login_use_case = LoginUseCase(repository, jwt_service)
     return UserServices(register_use_case, login_use_case)
 
 @router.post("/register", response_model=ApiResponse[CreateUserResponseDto], status_code=status.HTTP_201_CREATED)

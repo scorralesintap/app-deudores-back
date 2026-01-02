@@ -5,5 +5,5 @@ from src.application.dtos.users.create_user_response_dto import CreateUserRespon
 class IRegisterUserUseCase(ABC):
 
     @abstractmethod
-    def create(self, createUserDto: CreateUserDto) -> CreateUserResponseDto:
+    def create(self, create_user_dto: CreateUserDto) -> CreateUserResponseDto:
         pass
