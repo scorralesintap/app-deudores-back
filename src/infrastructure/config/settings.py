@@ -1,5 +1,6 @@
 from functools import lru_cache
 from typing import Literal
+from zoneinfo import ZoneInfo
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
@@ -18,6 +19,7 @@ class Settings(BaseSettings):
 
     ENVIRONMENT: Literal["development", "qa", "production"] = "development"
     DEBUG: bool
+    TIMEZONE_OFFSET: int = -5
 
     FGA_API_BASE_URL: str | None = None
     FGA_API_KEY: str | None = None

@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta, timezone
+
+from src.infrastructure.services.datetime_service import DatetimeService
 from src.domain.ports.ports_out.services.i_jwt_service import IJWTService
 from src.application.dtos.auth.login_dto import LoginDto
 from src.application.dtos.auth.login_reponse_dto import LoginResponseDto
@@ -23,7 +25,7 @@ class LoginUseCase(ILoginUseCase):
             raise Exception("Usuario inactivo")
 
         if user.locked_until and user.locked_until > datetime.now(timezone.utc):
-            raise Exception(f"Cuenta bloqueada hasta {user.locked_until}")
+            raise Exception(f"La cuenta está bloqueada hasta { DatetimeService.format_datetime(user.locked_until) }")
 
         if user.locked_until and user.locked_until <= datetime.now(timezone.utc):
             await self.user_repository.update_failed_attempts(user, 0, None)
